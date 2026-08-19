@@ -31,14 +31,15 @@ def predict_sales():
     'Product_Weight': data['Product_Weight'],
     'Product_Sugar_Content': data['Product_Sugar_Content'],
     'Product_Allocated_Area': data['Product_Allocated_Area'],
+    'Product_Type': data['Product_Type'],
     'Product_MRP': data['Product_MRP'],
+    'Store_Id': data['Store_Id'],
     'Store_Size': data['Store_Size'],
     'Store_Location_City_Type': data['Store_Location_City_Type'],
     'Store_Type': data['Store_Type'],
     'Product_Id_char': data['Product_Id_char'],
     'Store_Age_Years': data['Store_Age_Years'],
-    'Product_Type_Category': data['Product_Type_Category']
-}
+    }
 
     # Convert the extracted data into a DataFrame
     input_data = pd.DataFrame([sample])
@@ -64,7 +65,7 @@ def predict_sales_batch():
     # Create an output dictionary mapping row index to predicted sales
     output_dict = {str(i): round(pred, 2) for i, pred in enumerate(predictions)}
 
-    return output_dict
+    return jsonify(output_dict)
 
 
 # Run the Flask app in debug mode

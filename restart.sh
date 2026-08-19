@@ -288,3 +288,31 @@ docker ps \
 
 echo
 echo "================================================="
+# -------------------------------------------------------
+# 12. Set Codespace port visibility
+# -------------------------------------------------------
+
+info "Setting Codespace port visibility..."
+
+if command -v gh >/dev/null 2>&1; then
+
+    if [[ -n "${CODESPACE_NAME:-}" ]]; then
+
+        if gh codespace ports visibility \
+            -c "$CODESPACE_NAME" \
+            "${BACKEND_PORT}:public"; then
+
+            pass "Backend port ${BACKEND_PORT} set to Public"
+
+        else
+            echo "⚠️ Could not set port ${BACKEND_PORT} to Public."
+        fi
+
+    else
+        echo "⚠️ CODESPACE_NAME is not available."
+        echo "   Port visibility must be set manually."
+    fi
+
+else
+    echo "⚠️ GitHub CLI not found; skipping port visibility setting."
+fi
